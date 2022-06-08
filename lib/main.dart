@@ -12,8 +12,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: ProductOverviewPage(),
+        debugShowCheckedModeBanner: false,
+        home: ProductOverviewPage(),
+        theme: ThemeData().copyWith(
+          colorScheme: ThemeData().colorScheme.copyWith(
+                primary: Colors.purple,
+                secondary: Colors.orange,
+              ),
+          textTheme: const TextTheme().copyWith(
+            headline6: const TextStyle(fontFamily: 'Lato'),
+            subtitle1: const TextStyle(fontFamily: 'Lato'),
+          )
+        ),
     );
   }
 }
