@@ -25,12 +25,4 @@ final dummyProducts = [
     imageUrl:
     'https://live.staticflickr.com/4043/4438260868_cc79b3369d_z.jpg',
   ),
-  Product(
-    id: 'p4',
-    title: 'A Pan',
-    description: 'Prepare any meal you want.',
-    price: 49.99,
-    imageUrl:
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Cast-Iron-Pan.jpg/1024px-Cast-Iron-Pan.jpg',
-  ),
 ];
