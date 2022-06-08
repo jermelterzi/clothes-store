@@ -15,6 +15,7 @@ class ProductOverviewPage extends StatelessWidget {
         centerTitle: true,
       ),
       body: GridView.builder(
+        padding: const EdgeInsets.all(8.0),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           childAspectRatio: 3 / 2,
