@@ -13,6 +13,7 @@ class ProductOverviewPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Minha loja'),
         centerTitle: true,
+        titleTextStyle: Theme.of(context).textTheme.headline6,
       ),
       body: GridView.builder(
         padding: const EdgeInsets.all(8.0),
