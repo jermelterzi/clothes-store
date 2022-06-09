@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'pages/products_overview_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       create: (_) => ProductList(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: ProductOverviewPage(),
+        home: const ProductOverviewPage(),
         theme: ThemeData().copyWith(
           colorScheme: ThemeData().colorScheme.copyWith(
             primary: Colors.purple,
