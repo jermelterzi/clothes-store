@@ -17,7 +17,7 @@ class ProductItem extends StatelessWidget {
       child: GridTile(
         footer: GridTileBar(
           title: Text(
-            product.title,
+            product.name,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.subtitle1,
           ),
