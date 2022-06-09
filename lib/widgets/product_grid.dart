@@ -1,4 +1,3 @@
-import 'package:clothes_store/data/dummy_data.dart';
 import 'package:clothes_store/models/product.dart';
 import 'package:clothes_store/models/product_list.dart';
 import 'package:clothes_store/widgets/product_item.dart';
@@ -20,9 +19,11 @@ class ProductGrid extends StatelessWidget {
         crossAxisSpacing: 8,
         mainAxisSpacing: 8,
       ),
-      itemBuilder: (ctx, index) => ProductItem(product: dummyProducts[index]),
+      itemBuilder: (ctx, index) => ChangeNotifierProvider.value(
+        value: loadedProducts[index],
+        child: ProductItem(),
+      ),
       itemCount: loadedProducts.length,
     );
   }
 }
-
