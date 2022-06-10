@@ -1,4 +1,5 @@
 import 'package:clothes_store/models/cart.dart';
+import 'package:clothes_store/utils/app_routes.dart';
 import 'package:clothes_store/widgets/badge.dart';
 import 'package:clothes_store/widgets/product_grid.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +58,9 @@ class _ProductOverviewPageState extends State<ProductOverviewPage> {
           ),
           Consumer<Cart>(
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed(AppRoutes.CART);
+              },
               icon: const Icon(Icons.shopping_cart),
             ),
             builder: (ctx, cart, child) => Badge(

@@ -1,5 +1,6 @@
 import 'package:clothes_store/models/cart.dart';
 import 'package:clothes_store/models/product_list.dart';
+import 'package:clothes_store/pages/cart_page.dart';
 import 'package:clothes_store/pages/product_detail_page.dart';
 import 'package:clothes_store/utils/app_routes.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,10 @@ class MyApp extends StatelessWidget {
             subtitle1: const TextStyle(fontFamily: 'Lato', fontSize: 10),
           ),
         ),
-        routes: {AppRoutes.PRODUCT_DETAIL: (ctx) => const ProductDetailPage()},
+        routes: {
+          AppRoutes.PRODUCT_DETAIL: (ctx) => const ProductDetailPage(),
+          AppRoutes.CART: (ctx) => const CartPage()
+        },
       ),
     );
   }
