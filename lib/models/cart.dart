@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class Cart with ChangeNotifier {
   Map<String, CartItem> _items = {};
 
-  Map<String, CartItem> get item => {..._items};
+  Map<String, CartItem> get items => {..._items};
 
   int get itemsCount {
     return _items.length;
