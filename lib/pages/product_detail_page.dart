@@ -6,12 +6,53 @@ class ProductDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Product product = ModalRoute.of(context)?.settings.arguments as Product;
+    final Product product =
+        ModalRoute.of(context)?.settings.arguments as Product;
 
     return Scaffold(
       appBar: AppBar(
         title: Text(product.name),
         centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height * 0.4,
+              width: double.infinity,
+              child: Image.network(
+                product.imageUrl,
+                fit: BoxFit.cover,
+              ),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Text(
+              'R\$ ${product.price}',
+              style: const TextStyle(
+                color: Colors.grey,
+                fontSize: 24,
+              ),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8,
+              ),
+              width: double.infinity,
+              child: Text(
+                product.description,
+                style: const TextStyle(
+                  color: Colors.black,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
