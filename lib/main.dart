@@ -1,3 +1,4 @@
+import 'package:clothes_store/models/cart.dart';
 import 'package:clothes_store/models/product_list.dart';
 import 'package:clothes_store/pages/product_detail_page.dart';
 import 'package:clothes_store/utils/app_routes.dart';
@@ -15,24 +16,29 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => ProductList(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => ProductList(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => Cart(),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: const ProductOverviewPage(),
         theme: ThemeData().copyWith(
           colorScheme: ThemeData().colorScheme.copyWith(
-            primary: Colors.purple,
-            secondary: Colors.orange,
-          ),
+                primary: Colors.purple,
+                secondary: Colors.orange,
+              ),
           textTheme: const TextTheme().copyWith(
             headline6: const TextStyle(fontFamily: 'Lato'),
             subtitle1: const TextStyle(fontFamily: 'Lato', fontSize: 10),
           ),
         ),
-        routes: {
-          AppRoutes.PRODUCT_DETAIL: (ctx) => const ProductDetailPage()
-        },
+        routes: {AppRoutes.PRODUCT_DETAIL: (ctx) => const ProductDetailPage()},
       ),
     );
   }

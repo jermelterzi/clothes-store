@@ -1,3 +1,4 @@
+import 'package:clothes_store/models/cart.dart';
 import 'package:clothes_store/models/product.dart';
 import 'package:clothes_store/utils/app_routes.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ class ProductItem extends StatelessWidget {
       context,
       listen: false,
     );
+    final cart = Provider.of<Cart>(context, listen: false);
     return ClipRRect(
       borderRadius: BorderRadius.circular(8),
       child: GridTile(
@@ -34,7 +36,9 @@ class ProductItem extends StatelessWidget {
             ),
           ),
           trailing: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              cart.addItem(product);
+            },
             icon: const Icon(Icons.shopping_cart),
             color: Theme.of(context).colorScheme.secondary,
           ),
