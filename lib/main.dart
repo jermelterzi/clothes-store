@@ -2,8 +2,10 @@ import 'package:clothes_store/models/cart.dart';
 import 'package:clothes_store/models/order_list.dart';
 import 'package:clothes_store/models/product_list.dart';
 import 'package:clothes_store/pages/cart_page.dart';
+import 'package:clothes_store/pages/orders_page.dart';
 import 'package:clothes_store/pages/product_detail_page.dart';
 import 'package:clothes_store/utils/app_routes.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -32,7 +34,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const ProductOverviewPage(),
+        // home: const ProductOverviewPage(),
         theme: ThemeData().copyWith(
           colorScheme: ThemeData().colorScheme.copyWith(
                 primary: Colors.purple,
@@ -44,8 +46,10 @@ class MyApp extends StatelessWidget {
           ),
         ),
         routes: {
+          AppRoutes.HOME: (ctx) => const ProductOverviewPage(),
           AppRoutes.PRODUCT_DETAIL: (ctx) => const ProductDetailPage(),
-          AppRoutes.CART: (ctx) => const CartPage()
+          AppRoutes.CART: (ctx) => const CartPage(),
+          AppRoutes.ORDERS: (ctx) => const OrdersPage(),
         },
       ),
     );

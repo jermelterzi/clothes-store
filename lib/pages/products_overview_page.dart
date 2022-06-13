@@ -1,3 +1,4 @@
+import 'package:clothes_store/models/app_drawer.dart';
 import 'package:clothes_store/models/cart.dart';
 import 'package:clothes_store/utils/app_routes.dart';
 import 'package:clothes_store/widgets/badge.dart';
@@ -71,6 +72,7 @@ class _ProductOverviewPageState extends State<ProductOverviewPage> {
         ],
       ),
       body: ProductGrid(_showFavoritesOnly),
+      drawer: const AppDrawer(),
     );
   }
 }
