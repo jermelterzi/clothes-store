@@ -1,4 +1,4 @@
-import 'package:clothes_store/models/app_drawer.dart';
+import 'package:clothes_store/widgets/app_drawer.dart';
 import 'package:clothes_store/models/cart.dart';
 import 'package:clothes_store/utils/app_routes.dart';
 import 'package:clothes_store/widgets/badge.dart';
@@ -27,7 +27,7 @@ class _ProductOverviewPageState extends State<ProductOverviewPage> {
       appBar: AppBar(
         title: const Text('Minha loja'),
         centerTitle: true,
-        titleTextStyle: Theme.of(context).textTheme.headline6,
+        titleTextStyle: Theme.of(context).textTheme.headline5,
         actions: [
           PopupMenuButton(
             icon: const Icon(Icons.filter_list),

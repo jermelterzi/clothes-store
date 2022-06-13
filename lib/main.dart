@@ -41,8 +41,18 @@ class MyApp extends StatelessWidget {
                 secondary: Colors.orange,
               ),
           textTheme: const TextTheme().copyWith(
-            headline6: const TextStyle(fontFamily: 'Lato'),
-            subtitle1: const TextStyle(fontFamily: 'Lato', fontSize: 10),
+            headline5: const TextStyle(fontFamily: 'Lato'),
+            headline6: const TextStyle(fontFamily: 'Lato', color: Colors.black),
+            subtitle1: const TextStyle(
+              fontFamily: 'Lato',
+              fontSize: 10,
+              color: Colors.black,
+            ),
+            subtitle2: const TextStyle(
+              fontFamily: 'Lato',
+              fontSize: 10,
+              color: Colors.white,
+            ),
           ),
         ),
         routes: {
