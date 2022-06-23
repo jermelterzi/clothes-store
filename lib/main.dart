@@ -4,8 +4,9 @@ import 'package:clothes_store/models/product_list.dart';
 import 'package:clothes_store/pages/cart_page.dart';
 import 'package:clothes_store/pages/orders_page.dart';
 import 'package:clothes_store/pages/product_detail_page.dart';
+import 'package:clothes_store/pages/product_form_page.dart';
+import 'package:clothes_store/pages/products_page.dart';
 import 'package:clothes_store/utils/app_routes.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
             ),
             subtitle2: const TextStyle(
               fontFamily: 'Lato',
-              fontSize: 10,
+              fontSize: 12,
               color: Colors.white,
             ),
           ),
@@ -60,6 +61,8 @@ class MyApp extends StatelessWidget {
           AppRoutes.PRODUCT_DETAIL: (ctx) => const ProductDetailPage(),
           AppRoutes.CART: (ctx) => const CartPage(),
           AppRoutes.ORDERS: (ctx) => const OrdersPage(),
+          AppRoutes.PRODUCTS: (ctx) => const ProductsPage(),
+          AppRoutes.PRODUCTS_FORM: (ctx) => const ProductFormPage(),
         },
       ),
     );
