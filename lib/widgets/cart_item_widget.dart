@@ -1,5 +1,6 @@
 import 'package:clothes_store/models/cart.dart';
 import 'package:clothes_store/models/cart_item.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -35,6 +36,32 @@ class CartItemWidget extends StatelessWidget {
           context,
           listen: false,
         ).removeItem(cartItem.productId);
+      },
+      confirmDismiss: (_) {
+        return showDialog(
+          context: context,
+          builder: (ctx) {
+            return AlertDialog(
+              title: const Text('Deseja mesmo excluir?'),
+              content:
+                  const Text('Tem certeza que deseja remover este item do carrinho?'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(ctx).pop(false);
+                  },
+                  child: const Text('Não'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(ctx).pop(true);
+                  },
+                  child: const Text('Sim'),
+                ),
+              ],
+            );
+          },
+        );
       },
       child: Card(
         margin: const EdgeInsets.symmetric(
