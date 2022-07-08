@@ -9,7 +9,8 @@ import 'package:http/http.dart' as http;
 class ProductList with ChangeNotifier {
   final List<Product> _items = dummyProducts;
 
-  final _baseURL = 'https://clothes-store-bd94f-default-rtdb.firebaseio.com/';
+  final _url =
+      'https://clothes-store-bd94f-default-rtdb.firebaseio.com/products.json';
 
   List<Product> get items => [..._items];
   List<Product> get favoriteItems =>
@@ -17,6 +18,13 @@ class ProductList with ChangeNotifier {
 
   int get itemsCount {
     return _items.length;
+  }
+
+  Future<void> loadProducts() async {
+    final result = await http.get(
+      Uri.parse(_url),
+    );
+    print(result.body);
   }
 
   Future<void> saveProduct(Map<String, Object> data) {
@@ -37,7 +45,7 @@ class ProductList with ChangeNotifier {
 
   Future<void> addProduct(Product product) async {
     final result = await http.post(
-      Uri.parse('$_baseURL/products.json'),
+      Uri.parse(_url),
       body: jsonEncode(
         {
           'name': product.name,

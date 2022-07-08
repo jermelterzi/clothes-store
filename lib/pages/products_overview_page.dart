@@ -1,3 +1,4 @@
+import 'package:clothes_store/models/product_list.dart';
 import 'package:clothes_store/widgets/app_drawer.dart';
 import 'package:clothes_store/models/cart.dart';
 import 'package:clothes_store/utils/app_routes.dart';
@@ -20,6 +21,15 @@ class ProductOverviewPage extends StatefulWidget {
 
 class _ProductOverviewPageState extends State<ProductOverviewPage> {
   bool _showFavoritesOnly = false;
+
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<ProductList>(
+      context,
+      listen: false,
+    ).loadProducts();
+  }
 
   @override
   Widget build(BuildContext context) {
