@@ -1,6 +1,5 @@
 import 'package:clothes_store/models/cart.dart';
 import 'package:clothes_store/models/cart_item.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -43,8 +42,8 @@ class CartItemWidget extends StatelessWidget {
           builder: (ctx) {
             return AlertDialog(
               title: const Text('Deseja mesmo excluir?'),
-              content:
-                  const Text('Tem certeza que deseja remover este item do carrinho?'),
+              content: const Text(
+                  'Tem certeza que deseja remover este item do carrinho?'),
               actions: [
                 TextButton(
                   onPressed: () {

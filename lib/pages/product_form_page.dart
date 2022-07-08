@@ -39,12 +39,12 @@ class _ProductFormPageState extends State<ProductFormPage> {
       await showDialog(
         context: context,
         builder: (_) => AlertDialog(
-          title: Text('Ocorreu um erro!'),
-          content: Text('Ocorreu um erro ao tentar salvar o produto.'),
+          title: const Text('Ocorreu um erro!'),
+          content: const Text('Ocorreu um erro ao tentar salvar o produto.'),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('Ok'),
+              child: const Text('Ok'),
             ),
           ],
         ),
@@ -52,7 +52,6 @@ class _ProductFormPageState extends State<ProductFormPage> {
     } finally {
       setState(() => _isLoading = false);
     }
-    ;
   }
 
   bool _validateUrl(String url) {
