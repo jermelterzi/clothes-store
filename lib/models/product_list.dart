@@ -3,14 +3,12 @@ import 'dart:math';
 
 import 'package:clothes_store/exception/http_exception.dart';
 import 'package:clothes_store/models/product.dart';
+import 'package:clothes_store/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class ProductList with ChangeNotifier {
   final List<Product> _items = [];
-
-  final _baseUrl =
-      'https://clothes-store-bd94f-default-rtdb.firebaseio.com/products';
 
   List<Product> get items => [..._items];
   List<Product> get favoriteItems =>
@@ -24,7 +22,7 @@ class ProductList with ChangeNotifier {
     _items.clear();
 
     final result = await http.get(
-      Uri.parse('$_baseUrl.json'),
+      Uri.parse('${Constants.BASE_URL}.json'),
     );
 
     if (result.body == 'null') return;
@@ -65,7 +63,7 @@ class ProductList with ChangeNotifier {
 
   Future<void> addProduct(Product product) async {
     final result = await http.post(
-      Uri.parse('$_baseUrl.json'),
+      Uri.parse('${Constants.BASE_URL}.json'),
       body: jsonEncode(
         {
           'name': product.name,
@@ -94,7 +92,7 @@ class ProductList with ChangeNotifier {
     int index = _items.indexWhere((p) => p.id == product.id);
     if (index >= 0) {
       await http.patch(
-        Uri.parse('$_baseUrl/${product.id}.json'),
+        Uri.parse('${Constants.BASE_URL}/${product.id}.json'),
         body: jsonEncode(
           {
             'name': product.name,
@@ -119,7 +117,7 @@ class ProductList with ChangeNotifier {
       notifyListeners();
 
       final response = await http.delete(
-        Uri.parse('$_baseUrl/${product.id}Chuteira'),
+        Uri.parse('${Constants.BASE_URL}/${product.id}Chuteira'),
       );
 
       if (response.statusCode >= 400) {
