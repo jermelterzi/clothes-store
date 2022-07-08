@@ -19,7 +19,7 @@ class ProductList with ChangeNotifier {
     return _items.length;
   }
 
-  void saveProduct(Map<String, Object> data) {
+  Future<void> saveProduct(Map<String, Object> data) {
     bool hasId = data['id'] != null;
     final product = Product(
       id: hasId ? data['id'] as String : Random().nextDouble().toString(),
@@ -29,14 +29,14 @@ class ProductList with ChangeNotifier {
       imageUrl: data['imageUrl'] as String,
     );
     if (hasId) {
-      updateProduct(product);
+      return updateProduct(product);
     } else {
-      addProduct(product);
+      return addProduct(product);
     }
   }
 
-  void addProduct(Product product) {
-    http.post(
+  Future<void> addProduct(Product product) {
+    final result = http.post(
       Uri.parse('$_baseURL/products.json'),
       body: jsonEncode(
         {
@@ -49,16 +49,30 @@ class ProductList with ChangeNotifier {
       ),
     );
 
-    _items.add(product);
-    notifyListeners();
+    return result.then(
+      (response) {
+        final id = jsonDecode(response.body)['name'];
+        _items.add(
+          Product(
+            id: id,
+            name: product.name,
+            description: product.description,
+            price: product.price,
+            imageUrl: product.imageUrl,
+          ),
+        );
+        notifyListeners();
+      },
+    );
   }
 
-  void updateProduct(Product product) {
+  Future<void> updateProduct(Product product) {
     int index = _items.indexWhere((p) => p.id == product.id);
     if (index >= 0) {
       _items[index] = product;
       notifyListeners();
     }
+    return Future.value();
   }
 
   void removeProduct(Product product) {
@@ -68,29 +82,4 @@ class ProductList with ChangeNotifier {
       notifyListeners();
     }
   }
-
-  // 1º Version
-  // bool _showFavoriteOnly = false;
-  //
-  // List<Product> get items {
-  //   if (_showFavoriteOnly) {
-  //     return _items.where((prod) => prod.isFavorite).toList();
-  //   }
-  //   return [..._items];
-  // }
-  //
-  // void showFavorites() {
-  //   _showFavoriteOnly = true;
-  //   notifyListeners();
-  // }
-  //
-  // void showAll() {
-  //   _showFavoriteOnly = false;
-  //   notifyListeners();
-  // }
-  //
-  // void addProduct(Product product) {
-  //   _items.add(product);
-  //   notifyListeners();
-  // }
 }
