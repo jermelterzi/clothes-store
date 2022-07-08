@@ -1,13 +1,12 @@
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:clothes_store/data/dummy_data.dart';
 import 'package:clothes_store/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class ProductList with ChangeNotifier {
-  final List<Product> _items = dummyProducts;
+  final List<Product> _items = [];
 
   final _url =
       'https://clothes-store-bd94f-default-rtdb.firebaseio.com/products.json';
@@ -21,10 +20,30 @@ class ProductList with ChangeNotifier {
   }
 
   Future<void> loadProducts() async {
+    _items.clear();
+
     final result = await http.get(
       Uri.parse(_url),
     );
-    print(result.body);
+
+    if (result.body == 'null') return;
+
+    Map<String, dynamic> data = jsonDecode(result.body);
+    data.forEach(
+      (productId, productData) {
+        _items.add(
+          Product(
+            id: productId,
+            name: productData['name'],
+            description: productData['description'],
+            price: productData['price'],
+            imageUrl: productData['imageUrl'],
+            isFavorite: productData['isFavorite'],
+          ),
+        );
+      },
+    );
+    notifyListeners();
   }
 
   Future<void> saveProduct(Map<String, Object> data) {
@@ -51,7 +70,7 @@ class ProductList with ChangeNotifier {
           'name': product.name,
           'description': product.description,
           'price': product.price,
-          'imageURL': product.imageUrl,
+          'imageUrl': product.imageUrl,
           'isFavorite': product.isFavorite,
         },
       ),
