@@ -32,10 +32,28 @@ class _ProductFormPageState extends State<ProductFormPage> {
     Provider.of<ProductList>(
       context,
       listen: false,
-    ).saveProduct(_formData).then((value) {
-      setState(() => _isLoading = false);
-      Navigator.of(context).pop();
-    });
+    ).saveProduct(_formData).catchError(
+      (error) {
+        return showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+            title: Text('Ocorreu um erro!'),
+            content: Text('Ocorreu um erro ao tentar salvar o produto.'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text('Ok'),
+              ),
+            ],
+          ),
+        );
+      },
+    ).then(
+      (value) {
+        setState(() => _isLoading = false);
+        Navigator.of(context).pop();
+      },
+    );
   }
 
   bool _validateUrl(String url) {
