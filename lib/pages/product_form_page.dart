@@ -45,13 +45,12 @@ class _ProductFormPageState extends State<ProductFormPage> {
     _imageUrlController.addListener(() => setState(() {}));
   }
 
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if(_formData.isEmpty) {
+    if (_formData.isEmpty) {
       final arg = ModalRoute.of(context)?.settings.arguments;
-      if(arg != null) {
+      if (arg != null) {
         final product = arg as Product;
         _formData['id'] = product.id;
         _formData['name'] = product.name;
@@ -167,7 +166,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
                       onFieldSubmitted: (_) => _submitForm(),
                       validator: (_imageUrl) {
                         final imageUrl = _imageUrl ?? '';
-                        if(!_validateUrl(imageUrl)){
+                        if (!_validateUrl(imageUrl)) {
                           return 'Informe uma URL válida!';
                         }
                         return null;
@@ -193,10 +192,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
                             'Informe a URL',
                             style: Theme.of(context).textTheme.subtitle1,
                           )
-                        : FittedBox(
-                            fit: BoxFit.cover,
-                            child: Image.network(_imageUrlController.text),
-                          ),
+                        : Image.network(_imageUrlController.text),
                   ),
                 ],
               ),
