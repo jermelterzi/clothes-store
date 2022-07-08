@@ -23,6 +23,13 @@ class _ProductOverviewPageState extends State<ProductOverviewPage> {
   bool _showFavoritesOnly = false;
   bool _isLoading = true;
 
+  Future<void> _refreshProducts(BuildContext context) {
+    return Provider.of<ProductList>(
+      context,
+      listen: false,
+    ).loadProducts();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -86,7 +93,10 @@ class _ProductOverviewPageState extends State<ProductOverviewPage> {
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : ProductGrid(_showFavoritesOnly),
+          : RefreshIndicator(
+              onRefresh: () => _refreshProducts(context),
+              child: ProductGrid(_showFavoritesOnly),
+            ),
       drawer: const AppDrawer(),
     );
   }
