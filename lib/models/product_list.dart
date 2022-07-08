@@ -22,7 +22,7 @@ class ProductList with ChangeNotifier {
     _items.clear();
 
     final result = await http.get(
-      Uri.parse('${Constants.BASE_URL}.json'),
+      Uri.parse('${Constants.PRODUCT_BASE_URL}.json'),
     );
 
     if (result.body == 'null') return;
@@ -63,7 +63,7 @@ class ProductList with ChangeNotifier {
 
   Future<void> addProduct(Product product) async {
     final result = await http.post(
-      Uri.parse('${Constants.BASE_URL}.json'),
+      Uri.parse('${Constants.PRODUCT_BASE_URL}.json'),
       body: jsonEncode(
         {
           'name': product.name,
@@ -92,7 +92,7 @@ class ProductList with ChangeNotifier {
     int index = _items.indexWhere((p) => p.id == product.id);
     if (index >= 0) {
       await http.patch(
-        Uri.parse('${Constants.BASE_URL}/${product.id}.json'),
+        Uri.parse('${Constants.PRODUCT_BASE_URL}/${product.id}.json'),
         body: jsonEncode(
           {
             'name': product.name,
@@ -117,7 +117,7 @@ class ProductList with ChangeNotifier {
       notifyListeners();
 
       final response = await http.delete(
-        Uri.parse('${Constants.BASE_URL}/${product.id}Chuteira'),
+        Uri.parse('${Constants.PRODUCT_BASE_URL}/${product.id}Chuteira'),
       );
 
       if (response.statusCode >= 400) {
