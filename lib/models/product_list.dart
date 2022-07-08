@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:clothes_store/exception/http_exception.dart';
 import 'package:clothes_store/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -8,8 +9,8 @@ import 'package:http/http.dart' as http;
 class ProductList with ChangeNotifier {
   final List<Product> _items = [];
 
-  final _url =
-      'https://clothes-store-bd94f-default-rtdb.firebaseio.com/products.json';
+  final _baseUrl =
+      'https://clothes-store-bd94f-default-rtdb.firebaseio.com/products';
 
   List<Product> get items => [..._items];
   List<Product> get favoriteItems =>
@@ -23,7 +24,7 @@ class ProductList with ChangeNotifier {
     _items.clear();
 
     final result = await http.get(
-      Uri.parse(_url),
+      Uri.parse('$_baseUrl.json'),
     );
 
     if (result.body == 'null') return;
@@ -64,7 +65,7 @@ class ProductList with ChangeNotifier {
 
   Future<void> addProduct(Product product) async {
     final result = await http.post(
-      Uri.parse(_url),
+      Uri.parse('$_baseUrl.json'),
       body: jsonEncode(
         {
           'name': product.name,
@@ -89,20 +90,46 @@ class ProductList with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> updateProduct(Product product) {
+  Future<void> updateProduct(Product product) async {
     int index = _items.indexWhere((p) => p.id == product.id);
     if (index >= 0) {
+      await http.patch(
+        Uri.parse('$_baseUrl/${product.id}.json'),
+        body: jsonEncode(
+          {
+            'name': product.name,
+            'description': product.description,
+            'price': product.price,
+            'imageUrl': product.imageUrl,
+            'isFavorite': product.isFavorite,
+          },
+        ),
+      );
+
       _items[index] = product;
       notifyListeners();
     }
-    return Future.value();
   }
 
-  void removeProduct(Product product) {
+  Future<void> removeProduct(Product product) async {
     int index = _items.indexWhere((p) => p.id == product.id);
     if (index >= 0) {
-      _items.removeWhere((p) => p.id == product.id);
+      final product = _items[index];
+      _items.remove(product);
       notifyListeners();
+
+      final response = await http.delete(
+        Uri.parse('$_baseUrl/${product.id}Chuteira'),
+      );
+
+      if (response.statusCode >= 400) {
+        _items.insert(index, product);
+        notifyListeners();
+        throw HttpException(
+          msg: 'Não foi possível apagar o produto',
+          statusCode: response.statusCode,
+        );
+      }
     }
   }
 }
