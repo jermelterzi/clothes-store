@@ -1,3 +1,4 @@
+import 'package:clothes_store/exception/auth_exception.dart';
 import 'package:clothes_store/models/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -33,6 +34,21 @@ class _AuthenticantionFormState extends State<AuthenticantionForm> {
     });
   }
 
+  void _showErrorDialog(String errorMsg) {
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+              title: Text('Ocorreu um erro ao autenticar!'),
+              content: Text(errorMsg),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('OK'),
+                )
+              ],
+            ));
+  }
+
   Future<void> _submit() async {
     final _isValid = _formKey.currentState?.validate() ?? false;
 
@@ -48,18 +64,24 @@ class _AuthenticantionFormState extends State<AuthenticantionForm> {
       listen: false,
     );
 
-    if (_isLogin()) {
-      // LOGIN
-      await auth.login(
-        _formData['email']!,
-        _formData['password']!,
-      );
-    } else {
-      // SIGNUP
-      await auth.signup(
-        _formData['email']!,
-        _formData['password']!,
-      );
+    try {
+      if (_isLogin()) {
+        // LOGIN
+        await auth.login(
+          _formData['email']!,
+          _formData['password']!,
+        );
+      } else {
+        // SIGNUP
+        await auth.signup(
+          _formData['email']!,
+          _formData['password']!,
+        );
+      }
+    } on AuthException catch (error) {
+      _showErrorDialog(error.toString());
+    } catch (error) {
+      _showErrorDialog('Ocorreu um erro inesperado!');
     }
     setState(() => _isLoading = false);
   }
