@@ -1,3 +1,4 @@
+import 'package:clothes_store/models/auth.dart';
 import 'package:clothes_store/models/cart.dart';
 import 'package:clothes_store/models/product.dart';
 import 'package:clothes_store/utils/app_routes.dart';
@@ -9,11 +10,9 @@ class ProductGridItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final product = Provider.of<Product>(
-      context,
-      listen: false,
-    );
+    final product = Provider.of<Product>(context, listen: false);
     final cart = Provider.of<Cart>(context, listen: false);
+    final auth = Provider.of<Auth>(context, listen: false);
     return ClipRRect(
       borderRadius: BorderRadius.circular(8),
       child: GridTile(
@@ -27,7 +26,7 @@ class ProductGridItem extends StatelessWidget {
           leading: Consumer<Product>(
             builder: (ctx, product, child) => IconButton(
               onPressed: () {
-                product.toggleFavorite();
+                product.toggleFavorite(auth.token ?? '');
               },
               icon: product.isFavorite
                   ? const Icon(Icons.favorite)

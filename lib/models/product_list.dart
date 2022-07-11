@@ -8,7 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class ProductList with ChangeNotifier {
-  final List<Product> _items = [];
+  final String _token;
+  List<Product> _items = [];
 
   List<Product> get items => [..._items];
   List<Product> get favoriteItems =>
@@ -18,11 +19,16 @@ class ProductList with ChangeNotifier {
     return _items.length;
   }
 
+  ProductList(
+    this._token,
+    this._items,
+  );
+
   Future<void> loadProducts() async {
     _items.clear();
 
     final result = await http.get(
-      Uri.parse('${Constants.PRODUCT_BASE_URL}.json'),
+      Uri.parse('${Constants.PRODUCT_BASE_URL}.json?auth=$_token'),
     );
 
     if (result.body == 'null') return;
@@ -63,7 +69,7 @@ class ProductList with ChangeNotifier {
 
   Future<void> addProduct(Product product) async {
     final result = await http.post(
-      Uri.parse('${Constants.PRODUCT_BASE_URL}.json'),
+      Uri.parse('${Constants.PRODUCT_BASE_URL}.json?auth=$_token'),
       body: jsonEncode(
         {
           'name': product.name,
@@ -92,7 +98,8 @@ class ProductList with ChangeNotifier {
     int index = _items.indexWhere((p) => p.id == product.id);
     if (index >= 0) {
       await http.patch(
-        Uri.parse('${Constants.PRODUCT_BASE_URL}/${product.id}.json'),
+        Uri.parse(
+            '${Constants.PRODUCT_BASE_URL}/${product.id}.json?auth=$_token'),
         body: jsonEncode(
           {
             'name': product.name,
@@ -117,7 +124,8 @@ class ProductList with ChangeNotifier {
       notifyListeners();
 
       final response = await http.delete(
-        Uri.parse('${Constants.PRODUCT_BASE_URL}/${product.id}Chuteira'),
+        Uri.parse(
+            '${Constants.PRODUCT_BASE_URL}/${product.id}.json?auth=$_token'),
       );
 
       if (response.statusCode >= 400) {
