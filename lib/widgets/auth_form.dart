@@ -50,6 +50,10 @@ class _AuthenticantionFormState extends State<AuthenticantionForm> {
 
     if (_isLogin()) {
       // LOGIN
+      await auth.login(
+        _formData['email']!,
+        _formData['password']!,
+      );
     } else {
       // SIGNUP
       await auth.signup(
