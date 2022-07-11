@@ -1,4 +1,6 @@
+import 'package:clothes_store/models/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 enum AuthMode { Signup, Login }
 
@@ -31,7 +33,7 @@ class _AuthenticantionFormState extends State<AuthenticantionForm> {
     });
   }
 
-  void _submit() {
+  Future<void> _submit() async {
     final _isValid = _formKey.currentState?.validate() ?? false;
 
     if (!_isValid) {
@@ -41,11 +43,19 @@ class _AuthenticantionFormState extends State<AuthenticantionForm> {
     setState(() => _isLoading = true);
 
     _formKey.currentState?.save();
+    Auth auth = Provider.of(
+      context,
+      listen: false,
+    );
 
     if (_isLogin()) {
       // LOGIN
     } else {
       // SIGNUP
+      await auth.signup(
+        _formData['email']!,
+        _formData['password']!,
+      );
     }
     setState(() => _isLoading = false);
   }
@@ -106,7 +116,7 @@ class _AuthenticantionFormState extends State<AuthenticantionForm> {
                       ? null
                       : (password) {
                           final _password = password ?? '';
-                          if (_password == _passwordController.text) {
+                          if (_password != _passwordController.text) {
                             return 'As senhas informadas não conferem.';
                           }
                           return null;
@@ -114,7 +124,7 @@ class _AuthenticantionFormState extends State<AuthenticantionForm> {
                 ),
               const SizedBox(height: 24),
               if (_isLoading)
-                CircularProgressIndicator()
+                const CircularProgressIndicator()
               else
                 ElevatedButton(
                   onPressed: _submit,
