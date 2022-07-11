@@ -21,7 +21,7 @@ class AppDrawer extends StatelessWidget {
               style: TextStyle(color: Colors.black),
             ),
             onTap: () => Navigator.of(context).pushNamed(
-              AppRoutes.HOME,
+              AppRoutes.AUTH_OR_HOME,
             ),
           ),
           const Divider(),

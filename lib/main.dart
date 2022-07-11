@@ -8,6 +8,7 @@ import 'package:clothes_store/pages/orders_page.dart';
 import 'package:clothes_store/pages/product_detail_page.dart';
 import 'package:clothes_store/pages/product_form_page.dart';
 import 'package:clothes_store/pages/products_page.dart';
+import 'package:clothes_store/pages/splash_page.dart';
 import 'package:clothes_store/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -62,8 +63,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         routes: {
-          AppRoutes.AUTH: (ctx) => const AuthenticationPage(),
-          AppRoutes.HOME: (ctx) => const ProductOverviewPage(),
+          AppRoutes.AUTH_OR_HOME: (ctx) => const SplashPage(),
           AppRoutes.PRODUCT_DETAIL: (ctx) => const ProductDetailPage(),
           AppRoutes.CART: (ctx) => const CartPage(),
           AppRoutes.ORDERS: (ctx) => OrdersPage(),
