@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class OrdersPage extends StatelessWidget {
+  const OrdersPage({Key? key}) : super(key: key);
+
   Future<void> _refreshOrders(BuildContext context) {
     return Provider.of<OrderList>(
       context,
