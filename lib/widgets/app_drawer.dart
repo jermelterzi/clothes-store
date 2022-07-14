@@ -33,9 +33,16 @@ class AppDrawer extends StatelessWidget {
               'Pedidos',
               style: TextStyle(color: Colors.black),
             ),
-            onTap: () => Navigator.of(context).pushNamed(
-              AppRoutes.ORDERS,
-            ),
+            onTap: () {
+              Navigator.of(context).pushNamed(
+                AppRoutes.ORDERS,
+              );
+              // Navigator.of(context).pushReplacement(
+              //   CustomRoute(
+              //     builder: (ctx) => OrdersPage(),
+              //   ),
+              // );
+            },
           ),
           ListTile(
             leading: const Icon(Icons.edit),

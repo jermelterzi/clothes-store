@@ -11,6 +11,7 @@ import 'package:clothes_store/pages/product_form_page.dart';
 import 'package:clothes_store/pages/products_page.dart';
 import 'package:clothes_store/pages/splash_page.dart';
 import 'package:clothes_store/utils/app_routes.dart';
+import 'package:clothes_store/utils/custom_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -57,7 +58,11 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         // home: const ProductOverviewPage(),
-        theme: ThemeData().copyWith(
+        theme: ThemeData(
+            pageTransitionsTheme: PageTransitionsTheme(builders: {
+          TargetPlatform.iOS: CustomPageTransitionsBuilder(),
+          TargetPlatform.android: CustomPageTransitionsBuilder(),
+        })).copyWith(
           colorScheme: ThemeData().colorScheme.copyWith(
                 primary: Colors.purple,
                 secondary: Colors.orange,
